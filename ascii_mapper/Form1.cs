@@ -50,7 +50,8 @@ namespace ascii_mapper
         private void Button2_Click(object sender, EventArgs e)
         {
             ImageHelper imageHelper = new ImageHelper((Bitmap)pictureBox1.Image);
-            pictureBox1.Image = imageHelper.MakeGrayscale();
+            imageHelper.Grayscale();
+            pictureBox1.Image = imageHelper.Image;
 
         }
 
@@ -62,7 +63,8 @@ namespace ascii_mapper
         private void DownscaleButton_Click(object sender, EventArgs e)
         {
             ImageHelper imageHelper = new ImageHelper((Bitmap)pictureBox1.Image);
-            pictureBox1.Image = imageHelper.MakeDownscale();
+            imageHelper.DownscaleByWidth(40);
+            pictureBox1.Image = imageHelper.Image;
         }
     }
 }

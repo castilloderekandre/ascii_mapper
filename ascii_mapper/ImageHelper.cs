@@ -32,6 +32,26 @@ namespace ascii_mapper
             this.Image = MakeResize(this.Image, size);
         }
 
+        public void Grayscale()
+        {
+            this.Image = MakeGrayscale(this.Image); 
+        }
+
+        public void Downscale(float factor)
+        {
+            this.Image = MakeDownscale(this.Image, factor);
+        }
+
+        public void DownscaleByWidth(int width)
+        {
+            this.Image = MakeDownscaleByWidth(this.Image, width);
+        }
+
+        public void DownscaleByHeight(int height)
+        {
+            this.Image = MakeDownscaleByHeight(this.Image, height);
+        }
+
         public Bitmap MakeResize(Bitmap image, Size size)
         {
             Point point = new Point(0, 0);
@@ -84,10 +104,9 @@ namespace ascii_mapper
             return newBitmap;
         }
 
-        public Bitmap MakeGrayscale()
+        public Bitmap MakeGrayscale(Bitmap image)
         {
-            Bitmap image = new Bitmap(this.Image);
-            Bitmap newBitmap = new Bitmap(this.Image.Width, this.Image.Height);
+            Bitmap newBitmap = new Bitmap(image.Width, image.Height);
 
             //get a graphics object from the new image
             using (Graphics g = Graphics.FromImage(newBitmap))
@@ -120,10 +139,21 @@ namespace ascii_mapper
             return newBitmap;
         }
 
-        public Bitmap MakeDownscale()
+        public Bitmap MakeDownscaleByWidth(Bitmap image, int width)
         {
-            Bitmap image = new Bitmap(this.Image);
-            Bitmap newImage = new Bitmap(image.Width / 2, image.Height / 2);
+            float factor = (float)image.Width / width;
+            return MakeDownscale(image, factor);
+        }
+
+        public Bitmap MakeDownscaleByHeight(Bitmap image, int height)
+        {
+            float factor = (float)image.Height / height;
+            return MakeDownscale(image, factor);
+        }
+
+        public Bitmap MakeDownscale(Bitmap image, float factor)
+        {
+            Bitmap newImage = new Bitmap((int)(image.Width / factor), (int)(image.Height / factor));
 
             using (Graphics g = Graphics.FromImage(newImage))
             {
@@ -134,9 +164,8 @@ namespace ascii_mapper
                    0, 0, image.Width, image.Height, GraphicsUnit.Pixel);
             }
 
-
-
-            return this.MakeResize(newImage, image.Size);
+            return newImage;
+            //return this.MakeResize(newImage, image.Size);
         }
     }
 }

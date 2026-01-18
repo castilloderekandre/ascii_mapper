@@ -29,10 +29,14 @@ namespace ascii_mapper
 
         public void Resize(Size size) 
         {
+            this.Image = MakeResize(this.Image, size);
+        }
+
+        public Bitmap MakeResize(Bitmap image, Size size)
+        {
             Point point = new Point(0, 0);
             var destRect = new Rectangle(point, size);
             Bitmap resizedImage = new Bitmap(this.Image, size);
-            Bitmap image = new Bitmap(this.Image);
 
             resizedImage.SetResolution(image.HorizontalResolution, image.VerticalResolution);
 
@@ -49,10 +53,10 @@ namespace ascii_mapper
                 }
             }
 
-            this.Image = resizedImage;
+            return resizedImage;
         }
 
-        public Bitmap MakeGrayscale()
+        public Bitmap MakeGrayscaleLegacy()
         {
             //make an empty bitmap the same size as original
             Bitmap original = new Bitmap(this.Image);
@@ -80,7 +84,7 @@ namespace ascii_mapper
             return newBitmap;
         }
 
-        public Bitmap MakeGrayscale3()
+        public Bitmap MakeGrayscale()
         {
             Bitmap image = new Bitmap(this.Image);
             Bitmap newBitmap = new Bitmap(this.Image.Width, this.Image.Height);
@@ -114,6 +118,25 @@ namespace ascii_mapper
             }
 
             return newBitmap;
+        }
+
+        public Bitmap MakeDownscale()
+        {
+            Bitmap image = new Bitmap(this.Image);
+            Bitmap newImage = new Bitmap(image.Width / 2, image.Height / 2);
+
+            using (Graphics g = Graphics.FromImage(newImage))
+            {
+                g.InterpolationMode = InterpolationMode.HighQualityBicubic;
+                g.SmoothingMode = SmoothingMode.HighQuality;
+                g.PixelOffsetMode = PixelOffsetMode.HighQuality;
+                g.DrawImage(image, new Rectangle(0, 0, newImage.Width, newImage.Height),
+                   0, 0, image.Width, image.Height, GraphicsUnit.Pixel);
+            }
+
+
+
+            return this.MakeResize(newImage, image.Size);
         }
     }
 }

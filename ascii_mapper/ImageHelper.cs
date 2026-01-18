@@ -13,9 +13,13 @@ namespace ascii_mapper
     internal class ImageHelper
     {
         public Bitmap Image { get; set; }
+
+        public float AspectRatio { get; set; }
+
         public ImageHelper(Bitmap image)
         {
-            this.Image = image;
+            this.Image = new Bitmap(image);
+            this.AspectRatio = (float)this.Image.Width / this.Image.Height;
         }
 
         public void Resize(int width, int height)
@@ -28,7 +32,7 @@ namespace ascii_mapper
             Point point = new Point(0, 0);
             var destRect = new Rectangle(point, size);
             Bitmap resizedImage = new Bitmap(this.Image, size);
-            Bitmap image = this.Image;
+            Bitmap image = new Bitmap(this.Image);
 
             resizedImage.SetResolution(image.HorizontalResolution, image.VerticalResolution);
 
@@ -48,10 +52,38 @@ namespace ascii_mapper
             this.Image = resizedImage;
         }
 
+        public Bitmap MakeGrayscale()
+        {
+            //make an empty bitmap the same size as original
+            Bitmap original = new Bitmap(this.Image);
+            Bitmap newBitmap = new Bitmap(original.Width, original.Height);
+
+            for (int i = 0; i < original.Width; i++)
+            {
+                for (int j = 0; j < original.Height; j++)
+                {
+                    //get the pixel from the original image
+                    Color originalColor = original.GetPixel(i, j);
+
+                    //create the grayscale version of the pixel
+                    int grayScale = (int)((originalColor.R * .3) + (originalColor.G * .59)
+                        + (originalColor.B * .11));
+
+                    //create the color object
+                    Color newColor = Color.FromArgb(grayScale, grayScale, grayScale);
+
+                    //set the new image's pixel to the grayscale version
+                    newBitmap.SetPixel(i, j, newColor);
+                }
+            }
+
+            return newBitmap;
+        }
+
         public Bitmap MakeGrayscale3()
         {
+            Bitmap image = new Bitmap(this.Image);
             Bitmap newBitmap = new Bitmap(this.Image.Width, this.Image.Height);
-            Bitmap image = this.Image;
 
             //get a graphics object from the new image
             using (Graphics g = Graphics.FromImage(newBitmap))
@@ -81,7 +113,7 @@ namespace ascii_mapper
                 }
             }
 
-            return image;
+            return newBitmap;
         }
     }
 }

@@ -29,10 +29,34 @@ namespace ascii_mapper
 
         public void Resize(Size size) 
         {
+            this.Image = MakeResize(this.Image, size);
+        }
+
+        public void Grayscale()
+        {
+            this.Image = MakeGrayscale(this.Image); 
+        }
+
+        public void Downscale(float factor)
+        {
+            this.Image = MakeDownscale(this.Image, factor);
+        }
+
+        public void DownscaleByWidth(int width)
+        {
+            this.Image = MakeDownscaleByWidth(this.Image, width);
+        }
+
+        public void DownscaleByHeight(int height)
+        {
+            this.Image = MakeDownscaleByHeight(this.Image, height);
+        }
+
+        public Bitmap MakeResize(Bitmap image, Size size)
+        {
             Point point = new Point(0, 0);
             var destRect = new Rectangle(point, size);
             Bitmap resizedImage = new Bitmap(this.Image, size);
-            Bitmap image = new Bitmap(this.Image);
 
             resizedImage.SetResolution(image.HorizontalResolution, image.VerticalResolution);
 
@@ -49,10 +73,10 @@ namespace ascii_mapper
                 }
             }
 
-            this.Image = resizedImage;
+            return resizedImage;
         }
 
-        public Bitmap MakeGrayscale()
+        public Bitmap MakeGrayscaleLegacy()
         {
             //make an empty bitmap the same size as original
             Bitmap original = new Bitmap(this.Image);
@@ -80,10 +104,9 @@ namespace ascii_mapper
             return newBitmap;
         }
 
-        public Bitmap MakeGrayscale3()
+        public Bitmap MakeGrayscale(Bitmap image)
         {
-            Bitmap image = new Bitmap(this.Image);
-            Bitmap newBitmap = new Bitmap(this.Image.Width, this.Image.Height);
+            Bitmap newBitmap = new Bitmap(image.Width, image.Height);
 
             //get a graphics object from the new image
             using (Graphics g = Graphics.FromImage(newBitmap))
@@ -114,6 +137,35 @@ namespace ascii_mapper
             }
 
             return newBitmap;
+        }
+
+        public Bitmap MakeDownscaleByWidth(Bitmap image, int width)
+        {
+            float factor = (float)image.Width / width;
+            return MakeDownscale(image, factor);
+        }
+
+        public Bitmap MakeDownscaleByHeight(Bitmap image, int height)
+        {
+            float factor = (float)image.Height / height;
+            return MakeDownscale(image, factor);
+        }
+
+        public Bitmap MakeDownscale(Bitmap image, float factor)
+        {
+            Bitmap newImage = new Bitmap((int)(image.Width / factor), (int)(image.Height / factor));
+
+            using (Graphics g = Graphics.FromImage(newImage))
+            {
+                g.InterpolationMode = InterpolationMode.HighQualityBicubic;
+                g.SmoothingMode = SmoothingMode.HighQuality;
+                g.PixelOffsetMode = PixelOffsetMode.HighQuality;
+                g.DrawImage(image, new Rectangle(0, 0, newImage.Width, newImage.Height),
+                   0, 0, image.Width, image.Height, GraphicsUnit.Pixel);
+            }
+
+            return newImage;
+            //return this.MakeResize(newImage, image.Size);
         }
     }
 }

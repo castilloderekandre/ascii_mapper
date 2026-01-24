@@ -36,22 +36,20 @@ namespace ascii_mapper
                 pictureBox1.Image = Image.FromFile(filepath);
             }
 
-
-            ImageHelper imageHelper = new ImageHelper((Bitmap)pictureBox1.Image);
-            imageHelper.Resize(
+            ImageWrapper imageWrapper = new ImageWrapper((Bitmap)pictureBox1.Image);
+            Bitmap resizedImage = ImageHelper.MakeResize((Bitmap)pictureBox1.Image,
                     MAX_WIDTH,
-                    (int)Math.Ceiling(Form1.MAX_WIDTH / imageHelper.AspectRatio)
+                    (int)Math.Ceiling(Form1.MAX_WIDTH / imageWrapper.AspectRatio)
                 );
-
-            pictureBox1.Height = imageHelper.Image.Height;
-            pictureBox1.Image = imageHelper.Image;
+            pictureBox1.Height = resizedImage.Height;
+            pictureBox1.Image = resizedImage;
         }
 
         private void Button2_Click(object sender, EventArgs e)
         {
-            ImageHelper imageHelper = new ImageHelper((Bitmap)pictureBox1.Image);
-            imageHelper.Grayscale();
-            pictureBox1.Image = imageHelper.Image;
+            ImageWrapper imageWrapper = new ImageWrapper((Bitmap)pictureBox1.Image);
+            imageWrapper.ApplyFilter(new Filters.GrayscaleFilter());
+            pictureBox1.Image = imageWrapper.Image;
 
         }
 
@@ -62,9 +60,7 @@ namespace ascii_mapper
 
         private void DownscaleButton_Click(object sender, EventArgs e)
         {
-            ImageHelper imageHelper = new ImageHelper((Bitmap)pictureBox1.Image);
-            imageHelper.DownscaleByWidth(40);
-            pictureBox1.Image = imageHelper.Image;
+            pictureBox1.Image = ImageHelper.MakeDownscaleByWidth((Bitmap)pictureBox1.Image, 40);
         }
     }
 }

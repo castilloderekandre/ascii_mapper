@@ -9,11 +9,17 @@ namespace ascii_mapper.Filters
 {
     internal class GaussianBlurFilter : IFilter
     {
+        private readonly double _sigma;
         public Bitmap Apply(Bitmap image)
         {
             // Placeholder implementation for Gaussian Blur
             // Actual implementation would involve convolution with a Gaussian kernel
             return image;
+        }
+
+        public GaussianBlurFilter(double sigma)
+        {
+            _sigma = sigma;
         }
     }
 }

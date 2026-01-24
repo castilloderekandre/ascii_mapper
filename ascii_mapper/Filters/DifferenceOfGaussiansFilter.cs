@@ -1,14 +1,13 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Drawing;
+using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ascii_mapper
+namespace ascii_mapper.Filters
 {
-    internal interface IFilter
+    internal class DifferenceOfGaussiansFilter
     {
-        Bitmap Apply(Bitmap image);
     }
 }

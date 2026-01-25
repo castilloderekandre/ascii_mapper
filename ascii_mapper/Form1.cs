@@ -16,6 +16,7 @@ namespace ascii_mapper
     {
 
         const int MAX_WIDTH = 1200;
+        ImageWrapper imageWrapper = null;
 
         public Form1()
         {
@@ -36,21 +37,18 @@ namespace ascii_mapper
                 pictureBox1.Image = Image.FromFile(filepath);
             }
 
-            ImageWrapper imageWrapper = new ImageWrapper((Bitmap)pictureBox1.Image);
-            Bitmap resizedImage = ImageHelper.MakeResize((Bitmap)pictureBox1.Image,
-                    MAX_WIDTH,
+            imageWrapper = new ImageWrapper((Bitmap)pictureBox1.Image);
+            imageWrapper.Resize(MAX_WIDTH,
                     (int)Math.Ceiling(Form1.MAX_WIDTH / imageWrapper.AspectRatio)
                 );
-            pictureBox1.Height = resizedImage.Height;
-            pictureBox1.Image = resizedImage;
+            pictureBox1.Height = imageWrapper.Height;
+            pictureBox1.Image = imageWrapper.Image;
         }
 
         private void Button2_Click(object sender, EventArgs e)
         {
-            ImageWrapper imageWrapper = new ImageWrapper((Bitmap)pictureBox1.Image);
             imageWrapper.ApplyFilter(new Filters.GrayscaleFilter());
             pictureBox1.Image = imageWrapper.Image;
-
         }
 
         private void TrackBar1_Scroll(object sender, EventArgs e)
@@ -60,7 +58,14 @@ namespace ascii_mapper
 
         private void DownscaleButton_Click(object sender, EventArgs e)
         {
-            pictureBox1.Image = ImageHelper.MakeDownscaleByWidth((Bitmap)pictureBox1.Image, 40);
+            imageWrapper.DownscaleByWidth(40);
+            pictureBox1.Image = imageWrapper.Image;
+        }
+
+        private void UndoButton_Click(object sender, EventArgs e)
+        {
+            this.imageWrapper.Undo();
+            pictureBox1.Image = imageWrapper.Image;
         }
     }
 }

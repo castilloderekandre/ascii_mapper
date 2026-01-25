@@ -33,6 +33,7 @@
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.button2 = new System.Windows.Forms.Button();
             this.DownscaleButton = new System.Windows.Forms.Button();
+            this.UndoButton = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.TrackBar1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
@@ -88,11 +89,22 @@
             this.DownscaleButton.UseVisualStyleBackColor = true;
             this.DownscaleButton.Click += new System.EventHandler(this.DownscaleButton_Click);
             // 
+            // UndoButton
+            // 
+            this.UndoButton.Location = new System.Drawing.Point(13, 104);
+            this.UndoButton.Name = "UndoButton";
+            this.UndoButton.Size = new System.Drawing.Size(120, 23);
+            this.UndoButton.TabIndex = 5;
+            this.UndoButton.Text = "Undo";
+            this.UndoButton.UseVisualStyleBackColor = true;
+            this.UndoButton.Click += new System.EventHandler(this.UndoButton_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1518, 929);
+            this.Controls.Add(this.UndoButton);
             this.Controls.Add(this.DownscaleButton);
             this.Controls.Add(this.button2);
             this.Controls.Add(this.pictureBox1);
@@ -114,6 +126,7 @@
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.Button DownscaleButton;
+        private System.Windows.Forms.Button UndoButton;
     }
 }
 

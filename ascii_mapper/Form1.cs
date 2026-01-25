@@ -67,5 +67,11 @@ namespace ascii_mapper
             this.imageWrapper.Undo();
             pictureBox1.Image = imageWrapper.Image;
         }
+
+        private void BlurButton_Click(object sender, EventArgs e)
+        {
+            imageWrapper.ApplyFilter(new Filters.GaussianBlurFilter(5.0));
+            pictureBox1.Image = imageWrapper.Image;
+        }
     }
 }

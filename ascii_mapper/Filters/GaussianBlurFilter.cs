@@ -39,8 +39,8 @@ namespace ascii_mapper.Filters
             int height = smoothedImage.Height;
             int kHalf = _kernelSize / 2 | 0;
             
-            int outerLimit = axis == Axis.Horizontal ? width : height;
-            int innerLimit = axis == Axis.Horizontal ? height : width;
+            int outerLimit = axis == Axis.Horizontal ? height : width;
+            int innerLimit = axis == Axis.Horizontal ? width : height;
 
             for (int i = 0; i < outerLimit; i++)
             {
@@ -49,17 +49,17 @@ namespace ascii_mapper.Filters
                     double convolutionSum = 0.0;
                     for (int k = -kHalf; k <= kHalf; k++)
                     {
-                        int sampleIndex = axis == Axis.Horizontal ? Bounce(i + k, width - 1) : Bounce(j + k, height - 1);
-                        Color sampleColor = axis == Axis.Horizontal ? smoothedImage.GetPixel(sampleIndex, j) : smoothedImage.GetPixel(i, sampleIndex);
+                        int sampleIndex = Bounce(j + k, innerLimit - 1);
+                        Color sampleColor = axis == Axis.Horizontal ? smoothedImage.GetPixel(sampleIndex, i) : smoothedImage.GetPixel(i, sampleIndex);
                         double intensity = (sampleColor.R + sampleColor.G + sampleColor.B) / 3.0; //Use GrayscaleImage.Luminance property when implemented
-                        convolutionSum += intensity * _kernel[k + _kernelSize / 2];
+                        convolutionSum += intensity * kernel[k + kHalf];
                     }
                     int clampedValue = Math.Min(255, Math.Max(0, (int)convolutionSum));
                     Color newColor = Color.FromArgb(clampedValue, clampedValue, clampedValue);
                     if (axis == Axis.Horizontal)
-                        smoothedImage.SetPixel(i, j, newColor);
-                    else
                         smoothedImage.SetPixel(j, i, newColor);
+                    else
+                        smoothedImage.SetPixel(i, j, newColor);
                 }
             }
 

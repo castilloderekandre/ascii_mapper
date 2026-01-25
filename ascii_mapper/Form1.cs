@@ -70,7 +70,7 @@ namespace ascii_mapper
 
         private void BlurButton_Click(object sender, EventArgs e)
         {
-            imageWrapper.ApplyFilter(new Filters.GaussianBlurFilter(1.0));
+            imageWrapper.ApplyFilter(new Filters.GaussianBlurFilter(5.0));
             pictureBox1.Image = imageWrapper.Image;
         }
     }

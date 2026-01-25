@@ -14,6 +14,11 @@ namespace ascii_mapper.Filters
         private readonly double _standardDeviation;
         private readonly int _kernelSize;
         private readonly double[] _kernel;
+        enum Axis
+        {
+            Horizontal,
+            Vertical
+        }
         public GaussianBlurFilter(double standardDeviation)
         {
             this._standardDeviation = standardDeviation;
@@ -25,6 +30,40 @@ namespace ascii_mapper.Filters
             // Placeholder implementation for Gaussian Blur
             // Actual implementation would involve convolution with a Gaussian kernel
             return image;
+        }
+
+        private Bitmap Convolve(Bitmap image, double[] kernel, Axis axis)
+        {
+            Bitmap smoothedImage = new Bitmap(image);
+            int width = smoothedImage.Width;
+            int height = smoothedImage.Height;
+            int kHalf = _kernelSize / 2 | 0;
+            
+            int outerLimit = axis == Axis.Horizontal ? width : height;
+            int innerLimit = axis == Axis.Horizontal ? height : width;
+
+            for (int i = 0; i < outerLimit; i++)
+            {
+                for (int j = 0; j < innerLimit; j++)
+                {
+                    double convolutionSum = 0.0;
+                    for (int k = -kHalf; k <= kHalf; k++)
+                    {
+                        int sampleIndex = axis == Axis.Horizontal ? Bounce(i + k, width - 1) : Bounce(j + k, height - 1);
+                        Color sampleColor = axis == Axis.Horizontal ? smoothedImage.GetPixel(sampleIndex, j) : smoothedImage.GetPixel(i, sampleIndex);
+                        double intensity = (sampleColor.R + sampleColor.G + sampleColor.B) / 3.0; //Use GrayscaleImage.Luminance property when implemented
+                        convolutionSum += intensity * _kernel[k + _kernelSize / 2];
+                    }
+                    int clampedValue = Math.Min(255, Math.Max(0, (int)convolutionSum));
+                    Color newColor = Color.FromArgb(clampedValue, clampedValue, clampedValue);
+                    if (axis == Axis.Horizontal)
+                        smoothedImage.SetPixel(i, j, newColor);
+                    else
+                        smoothedImage.SetPixel(j, i, newColor);
+                }
+            }
+
+            return smoothedImage;
         }
 
         /// <summary>

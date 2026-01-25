@@ -61,11 +61,12 @@
     <Compile Include="Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
-    <Compile Include="ImagePipeline.cs" />
-    <Compile Include="ImageWrapper.cs" />
+    <Compile Include="Types\GrayscaleImage.cs" />
+    <Compile Include="Types\ImagePipeline.cs" />
+    <Compile Include="Types\ImageWrapper.cs" />
     <Compile Include="Interfaces\IFilter.cs" />
-    <Compile Include="ImageHelper.cs" />
-    <Compile Include="ImagePatch.cs" />
+    <Compile Include="Types\ImageHelper.cs" />
+    <Compile Include="Types\ImagePatch.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Form1.resx">

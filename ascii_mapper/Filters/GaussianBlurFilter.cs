@@ -27,9 +27,9 @@ namespace ascii_mapper.Filters
         }
         public Bitmap Apply(Bitmap image)
         {
-            // Placeholder implementation for Gaussian Blur
-            // Actual implementation would involve convolution with a Gaussian kernel
-            return image;
+            Bitmap smoothedImage = Convolve(image, _kernel, Axis.Horizontal);
+            smoothedImage = Convolve(smoothedImage, _kernel, Axis.Vertical);
+            return smoothedImage;
         }
 
         private Bitmap Convolve(Bitmap image, double[] kernel, Axis axis)

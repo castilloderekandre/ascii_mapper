@@ -34,6 +34,7 @@
             this.button2 = new System.Windows.Forms.Button();
             this.DownscaleButton = new System.Windows.Forms.Button();
             this.UndoButton = new System.Windows.Forms.Button();
+            this.BlurButton = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.TrackBar1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
@@ -91,7 +92,7 @@
             // 
             // UndoButton
             // 
-            this.UndoButton.Location = new System.Drawing.Point(13, 104);
+            this.UndoButton.Location = new System.Drawing.Point(13, 185);
             this.UndoButton.Name = "UndoButton";
             this.UndoButton.Size = new System.Drawing.Size(120, 23);
             this.UndoButton.TabIndex = 5;
@@ -99,11 +100,22 @@
             this.UndoButton.UseVisualStyleBackColor = true;
             this.UndoButton.Click += new System.EventHandler(this.UndoButton_Click);
             // 
+            // BlurButton
+            // 
+            this.BlurButton.Location = new System.Drawing.Point(13, 104);
+            this.BlurButton.Name = "BlurButton";
+            this.BlurButton.Size = new System.Drawing.Size(120, 23);
+            this.BlurButton.TabIndex = 6;
+            this.BlurButton.Text = "Blur";
+            this.BlurButton.UseVisualStyleBackColor = true;
+            this.BlurButton.Click += new System.EventHandler(this.BlurButton_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1518, 929);
+            this.Controls.Add(this.BlurButton);
             this.Controls.Add(this.UndoButton);
             this.Controls.Add(this.DownscaleButton);
             this.Controls.Add(this.button2);
@@ -127,6 +139,7 @@
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.Button DownscaleButton;
         private System.Windows.Forms.Button UndoButton;
+        private System.Windows.Forms.Button BlurButton;
     }
 }
 

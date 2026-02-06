@@ -96,11 +96,11 @@ namespace ascii_mapper.Filters
         /// <param name="x">The integer position at which to evaluate the Gaussian function.</param>
         /// <param name="sigma">The standard deviation of the Gaussian distribution. Must be greater than zero.</param>
         /// <returns>The value of the Gaussian distribution at the specified position and standard deviation.</returns>
-        private double Gaussian(int x, double sigma)
+        private double Gaussian1D(int x, double sigma, int u = 0)
         {
             double sigmaSquared2 = 2 * sigma * sigma;
             double coefficient = 1.0 / Math.Sqrt(Math.PI * sigmaSquared2);
-            double exponent = -(x * x) / sigmaSquared2;
+            double exponent = -((x - u) * (x - u)) / sigmaSquared2;
             return coefficient * Math.Exp(exponent);
         }
 
@@ -121,7 +121,7 @@ namespace ascii_mapper.Filters
             for (int i = 0; i < size; i++)
             {
                 int x = i - size / 2;
-                kernel[i] = Gaussian(x, sigma);
+                kernel[i] = Gaussian1D(x, sigma);
                 normalizationSum += kernel[i];
             }
 

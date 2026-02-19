@@ -35,7 +35,7 @@ namespace ascii_mapper
         /// <param name="size">The number of elements in the kernel. Must be a positive integer.</param>
         /// <param name="sigma">The standard deviation of the Gaussian distribution. Must be greater than 0.</param>
         /// <returns>An array of doubles representing the normalized Gaussian kernel. The sum of all elements in the array is 1.</returns>
-        public static double[] GenerateKernel(int size, double sigma)
+        public static double[] GenerateKernel(int size, double sigma, int u = 0)
         {
             double normalizationSum = 0.0;
             double[] kernel = new double[size];
@@ -43,7 +43,7 @@ namespace ascii_mapper
             for (int i = 0; i < size; i++)
             {
                 int x = i - size / 2;
-                kernel[i] = Gaussian1D(x, sigma);
+                kernel[i] = Gaussian1D(x, sigma, u);
                 normalizationSum += kernel[i];
             }
 

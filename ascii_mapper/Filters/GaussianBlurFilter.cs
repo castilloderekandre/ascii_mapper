@@ -23,7 +23,7 @@ namespace ascii_mapper.Filters
         {
             this._standardDeviation = standardDeviation;
             this._kernelSize = (int)(6 * standardDeviation) | 1; // Ensure kernel size is odd
-            this._kernel = KernelMath.GenerateKernel(_kernelSize, standardDeviation); //Precompute the kernel
+            this._kernel = KernelMath.GenerateGaussianKernel(_kernelSize, standardDeviation); //Precompute the kernel
         }
         public Bitmap Apply(Bitmap image)
         {

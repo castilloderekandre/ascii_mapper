@@ -61,6 +61,7 @@
     <Compile Include="Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
+    <Compile Include="GaussianKernel.cs" />
     <Compile Include="Interfaces\IFilter.cs" />
     <Compile Include="KernelMath.cs" />
     <Compile Include="Program.cs" />

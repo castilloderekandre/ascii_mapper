@@ -73,5 +73,11 @@ namespace ascii_mapper
             imageWrapper.ApplyFilter(new Filters.GaussianBlurFilter(5.0));
             pictureBox1.Image = imageWrapper.Image;
         }
+
+        private void BilateralFilterButton_Click(object sender, EventArgs e)
+        {
+            imageWrapper.ApplyFilter(new Filters.BilateralFilter(5.0, 5.0));
+            pictureBox1.Image = imageWrapper.Image;
+        }
     }
 }

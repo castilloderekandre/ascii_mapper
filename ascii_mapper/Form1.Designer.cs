@@ -35,6 +35,7 @@
             this.DownscaleButton = new System.Windows.Forms.Button();
             this.UndoButton = new System.Windows.Forms.Button();
             this.BlurButton = new System.Windows.Forms.Button();
+            this.BilateralFilterButton = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.TrackBar1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
@@ -110,11 +111,22 @@
             this.BlurButton.UseVisualStyleBackColor = true;
             this.BlurButton.Click += new System.EventHandler(this.BlurButton_Click);
             // 
+            // BilateralFilterButton
+            // 
+            this.BilateralFilterButton.Location = new System.Drawing.Point(13, 134);
+            this.BilateralFilterButton.Name = "BilateralFilterButton";
+            this.BilateralFilterButton.Size = new System.Drawing.Size(120, 23);
+            this.BilateralFilterButton.TabIndex = 7;
+            this.BilateralFilterButton.Text = "Bilateral Filter";
+            this.BilateralFilterButton.UseVisualStyleBackColor = true;
+            this.BilateralFilterButton.Click += new System.EventHandler(this.BilateralFilterButton_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1518, 929);
+            this.Controls.Add(this.BilateralFilterButton);
             this.Controls.Add(this.BlurButton);
             this.Controls.Add(this.UndoButton);
             this.Controls.Add(this.DownscaleButton);
@@ -140,6 +152,7 @@
         private System.Windows.Forms.Button DownscaleButton;
         private System.Windows.Forms.Button UndoButton;
         private System.Windows.Forms.Button BlurButton;
+        private System.Windows.Forms.Button BilateralFilterButton;
     }
 }
 

@@ -1,4 +1,4 @@
-﻿namespace ascii_mapper
+﻿namespace Core
 {
     partial class Form1
     {
